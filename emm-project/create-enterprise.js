@@ -28,7 +28,7 @@ async function createEnterprise() {
         const newEnterprise = res.data;
         console.log("✅ Empresa Creada Exitosamente:");
         console.log(`   ID: ${newEnterprise.name}`);
-        console.log(`   Nombre: ${newEnterprise.enterpriseDisplayName}`);
+        console.log(`   Nombre: ${newEnterprise.enterpriseDisplayName || 'EMM Platform Production'}`);
 
         // 3. Actualizar la Base de Datos
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -36,8 +36,9 @@ async function createEnterprise() {
         console.log("\n💾 Actualizando base de datos...");
 
         // Actualizamos el tenant existente (ID 1)
+        const companyName = newEnterprise.enterpriseDisplayName || 'EMM Platform Production';
         await pool.query('UPDATE tenants SET google_enterprise_id = $1, company_name = $2 WHERE id = 1',
-            [newEnterprise.name, newEnterprise.enterpriseDisplayName]);
+            [newEnterprise.name, companyName]);
 
         // Borramos políticas viejas que apuntaban a la empresa anterior (para evitar conflictos)
         await pool.query('DELETE FROM policies WHERE tenant_id = 1');
