@@ -2,8 +2,8 @@ const { google } = require('googleapis');
 const { Pool } = require('pg');
 require('dotenv').config();
 
-const ENTERPRISE_TOKEN = 'EABKJ9YD-vhn1vs1t7a7owK2C7_ay5vpTC3hdKLQ-yUOQu-1A5jUQOjaqy-4l0OPWKPsXCFASeltund1V2ET1NzsE63yWTY-KFxoookEw0_HHJR0NGgHgioA';
-const SIGNUP_URL_NAME = 'signupUrls/C3465056264f744e7';
+const ENTERPRISE_TOKEN = 'EABKJ9YBIi6Ks_Vse9OuQW92lJtMDqXYT365De-KmaLczi50Y0c904bAfIJ_qoL2Hy_Vp7oegE70Wj5h8IDvgCoAfS5eOqXDl4LDmPrdtngRA8oRc5DoKRsg';
+const SIGNUP_URL_NAME = 'signupUrls/Cebbf35ff8d950b54';
 const PROJECT_ID = 'emm-platform-production';
 
 async function createEnterprise() {
