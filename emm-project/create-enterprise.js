@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const ENTERPRISE_TOKEN = 'EABKJ9YAxKZTHxRkOg5OaCnSGWfZOm1VJIIyWG7wf-xYy4UxLtr6101dE-15JFcprGE_ZuOOr5uJFAhyo_VJ8pxUU4MfE_YZg3MRbmpjzvy4WH5il4ycviZM';
 const SIGNUP_URL_NAME = 'signupUrls/C951895909b93e0d6';
-const PROJECT_ID = 'versatile-bolt-405014';
+const PROJECT_ID = 'emm-platform-production';
 
 async function createEnterprise() {
     try {
