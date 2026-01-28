@@ -18,8 +18,13 @@ async function startEnterpriseSignup() {
         // Este enlace es el que vería tu "cliente" para darte permiso de administrar sus móviles
         const signupUrl = await amapi.signupUrls.create({
             projectId: projectId,
-            callbackUrl: 'https://google.com', // Después cambiaremos esto por tu dominio en la VPS
+            callbackUrl: 'https://google.com',
         });
+
+        console.log("\n------------------------------------------------------------");
+        console.log("⚠️  IMPORTANTE: GUARDA ESTE NOMBRE:");
+        console.log(`signupUrlName: ${signupUrl.data.name}`);
+        console.log("------------------------------------------------------------");
 
         console.log("\n------------------------------------------------------------");
         console.log("✅ ¡CONEXIÓN TOTALMENTE FUNCIONAL!");
