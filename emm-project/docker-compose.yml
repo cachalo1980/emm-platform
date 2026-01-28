@@ -33,5 +33,17 @@ services:
     volumes:
       - ./google-key.json:/app/keys/google-key.json
 
+  frontend:
+    build: ../emm-frontend
+    container_name: emm_frontend
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://emmoneto.caruao.cloud
+
 volumes:
   postgres_data:
