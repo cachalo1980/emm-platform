@@ -16,7 +16,7 @@ jobs:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: 186.23.239.234
+          host: sshemmoneto.caruao.cloud
           port: 22
           username: manuel
           key: ${{ secrets.VPS_SSH_KEY }}
