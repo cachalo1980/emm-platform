@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: emm_postgres_db
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=supersecretpassword
+      - POSTGRES_DB=emm_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d emm_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: emm_api_server
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3001:3000"
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgres://admin:supersecretpassword@db:5432/emm_db
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/keys/google-key.json
+      - ENTERPRISE_ID=enterprises/LC035ekk1v
+    volumes:
+      - ./google-key.json:/app/keys/google-key.json
+
+volumes:
+  postgres_data:
