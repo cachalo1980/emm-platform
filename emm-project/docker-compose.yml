@@ -43,7 +43,7 @@ services:
       - "3002:3000"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://emmoneto.caruao.cloud
+      - NEXT_PUBLIC_API_URL=https://apiemmoneto.caruao.cloud
 
 volumes:
   postgres_data:
