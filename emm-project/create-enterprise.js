@@ -2,9 +2,9 @@ const { google } = require('googleapis');
 const { Pool } = require('pg');
 require('dotenv').config();
 
-const ENTERPRISE_TOKEN = 'EABKJ9YAxKZTHxRkOg5OaCnSGWfZOm1VJIIyWG7wf-xYy4UxLtr6101dE-15JFcprGE_ZuOOr5uJFAhyo_VJ8pxUU4MfE_YZg3MRbmpjzvy4WH5il4ycviZM';
-const SIGNUP_URL_NAME = 'signupUrls/C951895909b93e0d6';
-const PROJECT_ID = 'versatile-bolt-405014';
+const ENTERPRISE_TOKEN = 'EABKJ9YBIi6Ks_Vse9OuQW92lJtMDqXYT365De-KmaLczi50Y0c904bAfIJ_qoL2Hy_Vp7oegE70Wj5h8IDvgCoAfS5eOqXDl4LDmPrdtngRA8oRc5DoKRsg';
+const SIGNUP_URL_NAME = 'signupUrls/Cebbf35ff8d950b54';
+const PROJECT_ID = 'emm-platform-production';
 
 async function createEnterprise() {
     try {
@@ -28,7 +28,7 @@ async function createEnterprise() {
         const newEnterprise = res.data;
         console.log("✅ Empresa Creada Exitosamente:");
         console.log(`   ID: ${newEnterprise.name}`);
-        console.log(`   Nombre: ${newEnterprise.enterpriseDisplayName}`);
+        console.log(`   Nombre: ${newEnterprise.enterpriseDisplayName || 'EMM Platform Production'}`);
 
         // 3. Actualizar la Base de Datos
         const pool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -36,8 +36,9 @@ async function createEnterprise() {
         console.log("\n💾 Actualizando base de datos...");
 
         // Actualizamos el tenant existente (ID 1)
+        const companyName = newEnterprise.enterpriseDisplayName || 'EMM Platform Production';
         await pool.query('UPDATE tenants SET google_enterprise_id = $1, company_name = $2 WHERE id = 1',
-            [newEnterprise.name, newEnterprise.enterpriseDisplayName]);
+            [newEnterprise.name, companyName]);
 
         // Borramos políticas viejas que apuntaban a la empresa anterior (para evitar conflictos)
         await pool.query('DELETE FROM policies WHERE tenant_id = 1');
